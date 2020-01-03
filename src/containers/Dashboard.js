@@ -3,6 +3,8 @@ import NotesList from '../components/NotesList'
 import { connect } from 'react-redux'
 import {Route} from 'react-router-dom'
 import Note from '../components/Note'
+import { Grid } from 'semantic-ui-react'
+
 
 
 
@@ -39,16 +41,17 @@ class Dashboard extends React.Component {
 
     render(){
         
-      return  <div>
-  
-        <Route path='/dashboard' component={()=><NotesList 
-        handleNoteClick={this.handleNoteClick}
-        history={this.props.history}
-        />}/>
-        <Route path='/dashboard/note/:noteId' component={()=><Note note={this.setNote()}/>}/>
-        
-        
-        </div>
+      return  <Grid>
+            <Grid.Column floated='left' width={5}>
+                <Route path='/dashboard' component={()=><NotesList 
+                handleNoteClick={this.handleNoteClick}
+                history={this.props.history}
+                />}/>
+            </Grid.Column>
+            <Grid.Column floated='right' width={5}>
+                <Route path='/dashboard/note/:noteId' component={()=><Note note={this.setNote()}/>}/>
+            </Grid.Column>
+        </Grid>
     }
 }
 

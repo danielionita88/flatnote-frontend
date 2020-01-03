@@ -22,7 +22,7 @@ class App extends React.Component {
   render(){
     return (
       <Router history={history}>
-        <div >
+        <div className='container'>
           <Route path='/' component={()=><Navbar userLogout={this.props.userLogout} 
           loged={this.props.login}/> 
           }/>
@@ -39,7 +39,10 @@ class App extends React.Component {
             :
             history.push('/login')
         }/>
-          <Route exact path='/login' render={(routeParams)=> <LoginForm {...routeParams} userLogin={this.props.userLogin}/>}/>
+          <Route exact path='/login' render={(routeParams)=> this.props.login ?
+            history.push('/dashboard')
+            :
+            <LoginForm {...routeParams} userLogin={this.props.userLogin}/>}/>
           <Route exact path='/sign-up' render={(routeParams)=><SignUpForm {...routeParams}
           userLogin={this.props.userLogin}/>}/>
         

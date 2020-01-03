@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
+
 class Note extends React.Component{
 
     state={
@@ -107,10 +108,13 @@ class Note extends React.Component{
         </div>
     }
     render(){ 
-        return this.state.isInEditMode ? 
+        return <div>
+       { this.state.isInEditMode ? 
         this.editMode()
         :
         this.showMode()
+       }
+       </div>
     }
 }
 
