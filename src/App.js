@@ -25,9 +25,13 @@ class App extends React.Component {
           <Route path='/' component={()=><Navbar userLogout={this.props.userLogout} 
           loged={this.props.login}/> 
           }/>
-          <Route path='/dashboard'  render={(routeParams)=><Dashboard {...routeParams}
+          <Route path='/dashboard'  render={(routeParams)=> this.props.login ? 
+          <Dashboard {...routeParams}
           user={this.props.login}
-          />}/>
+          />
+          :
+          this.props.history.push('/login')
+          }/>
           <Route exact path='/note/new' render={(routeParams)=><CreateNote {...routeParams} user={this.props.login}
           createNote={this.props.createNote}/>}/>
           <Route exact path='/login' render={(routeParams)=> <LoginForm {...routeParams} userLogin={this.props.userLogin}/>}/>

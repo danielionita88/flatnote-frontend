@@ -7,9 +7,11 @@ class Note extends React.Component{
     state={
         title: this.props.note.title,
         content: this.props.note.content,
-        tags: this.props.note.tags,
+        tags: this.props.note.tags.map(tag=>tag.name),
         isInEditMode: false
     }
+    
+
 
     handleDelete= id=>{
         fetch(`http://localhost:3000/notes/${id}`, {method: 'DELETE'})
@@ -41,6 +43,7 @@ class Note extends React.Component{
             body: JSON.stringify({
                 title: this.state.title,
                 content: this.state.content,
+                tags: this.state.tags
             })
         }
 
@@ -55,14 +58,13 @@ class Note extends React.Component{
         })
     }
 
-    handleTagChange= e =>{
+    handleTagChange=e=>{
         this.setState({
-            tags: e.target.value.split(' ')
+            tags: e.target.value.split(', ')
         })
     }
 
     editMode =()=>{
-        const tags = this.state.tags.map(tag => tag.name)
         return <div>
             <form onSubmit={this.handleSave}>
                 <span>Title:</span>
@@ -83,7 +85,7 @@ class Note extends React.Component{
                 onChange={this.handleTagChange}
                 type='text' 
                 name='tags' 
-                value={tags.join(' ')}/>
+                value={this.state.tags.join(', ')}/>
                 <input type='submit' value='Save'/>
             </form>
         </div>
@@ -99,9 +101,7 @@ class Note extends React.Component{
         return <div>
             <h3>{this.state.title}</h3>
             <p>{this.state.content}</p>
-            <ul>Tags:
-                {this.state.tags.map(tag => <li key={tag.id}>{tag.name}</li>)}
-            </ul>
+            <p>Tags: {this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}</p>
             <button onClick={()=>this.handleDelete(this.props.note.id)}>Delete</button>
             <button onClick={this.handleEdit}>Edit</button>
         </div>

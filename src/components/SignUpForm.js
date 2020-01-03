@@ -27,8 +27,9 @@ class SignUpForm extends React.Component{
         fetch('http://localhost:3000/users/', postObj)
         .then(resp => resp.json())
         .then(user=> {
-            user.message ? alert(user.message): this.props.userLogin(user)
-            this.props.history.push('/dashboard')
+            if(user.message){ alert(user.message)}
+            else {this.props.userLogin(user)
+            this.props.history.push('/dashboard')}
         })
     }
 
