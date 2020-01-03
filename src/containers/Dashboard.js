@@ -42,15 +42,19 @@ class Dashboard extends React.Component {
     render(){
         
       return  <Grid>
-            <Grid.Column floated='left' width={5}>
-                <Route path='/dashboard' component={()=><NotesList 
-                handleNoteClick={this.handleNoteClick}
-                history={this.props.history}
-                />}/>
-            </Grid.Column>
+            <div className='notes-list left'>
+                <Grid.Column floated='right' width={5}>
+                    <Route path='/dashboard' component={()=><NotesList 
+                    handleNoteClick={this.handleNoteClick}
+                    history={this.props.history}
+                    />}/>
+                </Grid.Column>
+            </div>
+            <div className="note right">
             <Grid.Column floated='right' width={5}>
                 <Route path='/dashboard/note/:noteId' component={()=><Note note={this.setNote()}/>}/>
             </Grid.Column>
+            </div>
         </Grid>
     }
 }

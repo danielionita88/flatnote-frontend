@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { List } from 'semantic-ui-react'
 
 
 
@@ -15,12 +16,23 @@ class NotesList extends React.Component{
     }
 
     renderNotes = ()=>{
-       return this.props.notes.map(note => <li onClick={()=>this.handleClick(note.id)} key={note.id}>{note.title}</li>)
+       return this.props.notes.map(note => <List.Item
+           onClick={()=>this.handleClick(note.id)} 
+            key={note.id}>
+                <List.Content>
+                    <List.Header>
+                        📄{note.title}
+                    </List.Header>
+                </List.Content>
+        </List.Item>)
     }
 
     render(){
         return <div>
-            {this.renderNotes()}
+            <h2>Notes: </h2>
+            <List>
+                {this.renderNotes()}
+            </List>
         </div>
     }
 

@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
+import { Card, Button, Form} from 'semantic-ui-react'
+
 
 
 class Note extends React.Component{
@@ -67,28 +69,36 @@ class Note extends React.Component{
 
     editMode =()=>{
         return <div>
-            <form onSubmit={this.handleSave}>
-                <span>Title:</span>
-                <input 
-                    onChange={this.handleChange}
-                    name='title'
-                    type='text'
-                    value={this.state.title}
-                /><br></br>
-                <span>Content:</span>
-                <textarea  
-                    onChange={this.handleChange}
-                    name='content'
-                    value={this.state.content}
-                /><br></br>
-                <span>Tags:</span>
-                <input 
-                onChange={this.handleTagChange}
-                type='text' 
-                name='tags' 
-                value={this.state.tags.join(', ')}/>
-                <input type='submit' value='Save'/>
-            </form>
+            <Form onSubmit={this.handleSave}>
+                <Form.Field>
+                    <span>Title:</span>
+                    <input 
+                        onChange={this.handleChange}
+                        name='title'
+                        type='text'
+                        value={this.state.title}
+                    />
+                </Form.Field>
+                <br></br>
+                <Form.Field>
+                    <span>Content:</span>
+                    <textarea  
+                        onChange={this.handleChange}
+                        name='content'
+                        value={this.state.content}
+                    />
+                </Form.Field>
+                <br></br>
+                <Form.Field>
+                    <span>Tags:</span>
+                    <input 
+                    onChange={this.handleTagChange}
+                    type='text' 
+                    name='tags' 
+                    value={this.state.tags.join(', ')}/>
+                </Form.Field>
+                <Button type='submit'> Save </Button>
+            </Form>
         </div>
     }
 
@@ -100,12 +110,14 @@ class Note extends React.Component{
 
     showMode = ()=>{
         return <div>
-            <h3>{this.state.title}</h3>
-            <p>{this.state.content}</p>
-            <p>Tags: {this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}</p>
-            <button onClick={()=>this.handleDelete(this.props.note.id)}>Delete</button>
-            <button onClick={this.handleEdit}>Edit</button>
+            <Card header={this.state.title}
+                description={this.state.content}
+                extra={ this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}
+            />
+            <Button onClick={()=>this.handleDelete(this.props.note.id)}>Delete</Button>
+            <Button onClick={this.handleEdit}>Edit</Button>
         </div>
+        
     }
     render(){ 
         return <div>

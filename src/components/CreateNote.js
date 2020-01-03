@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button, Form } from 'semantic-ui-react'
 
 
 class CreateNote extends React.Component{
@@ -42,15 +43,29 @@ class CreateNote extends React.Component{
     }
 
     render(){
-        return <div>
-            <form onSubmit={this.handleSubmit}>
-                <span>Title</span>
-                <input onChange={this.handleChange} type='text' name='title'value={this.state.title}/><br></br>
-                <span>Notes</span>
-                <textarea onChange={this.handleChange}name='content'value={this.state.content}/><br></br>
-                <input type='submit' value='Save'/>
+        return <div className='new-note'>
+            <h2>Create a note</h2>
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Field>
+                    <span>Title</span>
+                    <input onChange={this.handleChange} 
+                        type='text' 
+                        name='title'
+                        value={this.state.title}
+                    />
+                <br></br>
+                </Form.Field>
+                <Form.Field>
+                    <span>Notes</span>
+                    <textarea onChange={this.handleChange}
+                    name='content'
+                    value={this.state.content}
+                    />
+                <br></br>
+                </Form.Field>
+                <Button type='submit'>Save</Button>
 
-            </form>
+            </Form>
         </div>
     }
 }
