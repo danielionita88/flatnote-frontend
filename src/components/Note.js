@@ -14,17 +14,13 @@ class Note extends React.Component{
         isInEditMode: false
     }
     
-
-
+   
     handleDelete= id=>{
         fetch(`http://localhost:3000/notes/${id}`, {method: 'DELETE'})
         .then(resp => resp.json())
         .then(data => {
             this.props.history.push('/dashboard')
             this.props.deleteNote(id)
-            this.setState({
-                isInEditMode: false
-            })
         })
         .catch(err => console.log(err))
     }
@@ -110,7 +106,7 @@ class Note extends React.Component{
 
     showMode = ()=>{
         return <div>
-            <Card header={this.state.title}
+            <Card style={{minWidth:400}}header={this.state.title}
                 description={this.state.content}
                 extra={ this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}
             />

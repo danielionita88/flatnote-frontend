@@ -9,7 +9,6 @@ class SignUpForm extends React.Component{
         username: ''
     }
 
-
     handleChange =(e)=>{
         this.setState({
             username: e.target.value

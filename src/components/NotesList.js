@@ -9,7 +9,6 @@ import { List } from 'semantic-ui-react'
 
 class NotesList extends React.Component{
 
-  
     handleClick=id=>{
         this.props.handleNoteClick(id)
         this.props.history.push(`/dashboard/note/${id}`)

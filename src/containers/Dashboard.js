@@ -15,21 +15,21 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount(){
+        if(this.props.user){
         fetch(`http://localhost:3000/users/${this.props.user}/notes`)
         .then(resp => resp.json())
         .then(notesData => {
             this.props.getNotes(notesData)})
+        }
+        else this.props.history.push('/login')
+        
     }
-
 
     handleNoteClick= id =>{
         this.setState({
             note: id
-        })
-        
+        })  
     }
-
-
 
     setNote = () =>{
         
@@ -37,7 +37,6 @@ class Dashboard extends React.Component {
         
         return clickedNote
     }
-
 
     render(){
         
@@ -51,8 +50,12 @@ class Dashboard extends React.Component {
                 </Grid.Column>
             </div>
             <div className="note right">
-            <Grid.Column floated='right' width={5}>
-                <Route path='/dashboard/note/:noteId' component={()=><Note note={this.setNote()}/>}/>
+            <Grid.Column floated='right' width={10}>
+                <Route path='/dashboard/note/:noteId' component={()=><Note 
+                note={this.setNote()}
+                user={this.props.user}
+                history={this.props.history}
+                />}/>
             </Grid.Column>
             </div>
         </Grid>
