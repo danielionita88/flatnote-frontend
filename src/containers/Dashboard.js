@@ -53,8 +53,6 @@ class Dashboard extends React.Component {
             <Grid.Column floated='right' width={10}>
                 <Route path='/dashboard/note/:noteId' component={()=><Note 
                 note={this.setNote()}
-                user={this.props.user}
-                history={this.props.history}
                 />}/>
             </Grid.Column>
             </div>

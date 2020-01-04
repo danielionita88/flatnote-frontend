@@ -2,18 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { Card, Button, Form} from 'semantic-ui-react'
-
+import _ from 'lodash'
+import chunk from 'lodash/chunk'
 
 
 class Note extends React.Component{
-
+    
     state={
         title: this.props.note.title,
         content: this.props.note.content,
         tags: this.props.note.tags.map(tag=>tag.name),
         isInEditMode: false
     }
-    
    
     handleDelete= id=>{
         fetch(`http://localhost:3000/notes/${id}`, {method: 'DELETE'})
@@ -31,26 +31,29 @@ class Note extends React.Component{
         })
     }
 
-    handleSave = e =>{
+    handleSave = e =>{console.log(this.state.tags, this.props.note.tags.map(tag=> tag.name))
         e.preventDefault()
-        const reqObj={
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                title: this.state.title,
-                content: this.state.content,
-                tags: this.state.tags
+        if(_.isEqual(this.state.tags, this.props.note.tags.map(tag=>tag.name))){
+
+            const reqObj={
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    title: this.state.title,
+                    content: this.state.content,
+                    tags: this.state.tags
+                })
+            }
+
+            fetch(`http://localhost:3000/notes/${this.props.note.id}`, reqObj)
+            .then(resp=>resp.json())
+            .then(note => {
+                this.props.editNote(note)
             })
         }
-
-        fetch(`http://localhost:3000/notes/${this.props.note.id}`, reqObj)
-        .then(resp=>resp.json())
-        .then(note => {
-            this.props.editNote(note)
-        })
 
         this.setState({
             isInEditMode: false
