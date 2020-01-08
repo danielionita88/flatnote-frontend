@@ -70,5 +70,4 @@ class CreateNote extends React.Component{
     }
 }
 
-
 export default CreateNote

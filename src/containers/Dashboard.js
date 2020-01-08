@@ -5,9 +5,6 @@ import {Route} from 'react-router-dom'
 import Note from '../components/Note'
 import { Grid } from 'semantic-ui-react'
 
-
-
-
 class Dashboard extends React.Component {
 
     state={
@@ -15,20 +12,17 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount(){
-        if(this.props.user){
         fetch(`http://localhost:3000/users/${this.props.user}/notes`)
         .then(resp => resp.json())
         .then(notesData => {
             this.props.getNotes(notesData)})
-        }
-        else this.props.history.push('/login')
-        
     }
 
     handleNoteClick= id =>{
         this.setState({
             note: id
-        })  
+        })
+        
     }
 
     setNote = () =>{

@@ -8,7 +8,6 @@ class LoginForm extends React.Component{
         username: 'Daniel'
     }
 
-
     handleChange =(e)=>{
         this.setState({
             username: e.target.value
@@ -27,9 +26,7 @@ class LoginForm extends React.Component{
             }
             else 
                 alert("This user doesn't exist!Sign-up first!")
-            
         })
-        
     }
 
     render(){
@@ -43,8 +40,6 @@ class LoginForm extends React.Component{
             </Form>
         </div>
     }
-
-
 }
 
 export default LoginForm

@@ -2,11 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { List } from 'semantic-ui-react'
 
-
-
-
-
-
 class NotesList extends React.Component{
 
     handleClick=id=>{
@@ -34,7 +29,6 @@ class NotesList extends React.Component{
             </List>
         </div>
     }
-
 }
 
 const mapStateToProps=state=>{

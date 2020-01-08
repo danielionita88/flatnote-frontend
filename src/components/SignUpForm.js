@@ -1,8 +1,6 @@
 import React from 'react'
 import { Button, Form } from 'semantic-ui-react'
 
-
-
 class SignUpForm extends React.Component{
 
     state = {
@@ -45,8 +43,6 @@ class SignUpForm extends React.Component{
          </Form>
      </div>
     }
-
-
 }
 
 export default SignUpForm

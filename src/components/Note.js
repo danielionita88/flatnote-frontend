@@ -2,8 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import { Card, Button, Form} from 'semantic-ui-react'
-import _ from 'lodash'
-import chunk from 'lodash/chunk'
+
 
 
 class Note extends React.Component{
@@ -14,13 +13,16 @@ class Note extends React.Component{
         tags: this.props.note.tags.map(tag=>tag.name),
         isInEditMode: false
     }
-   
+    
     handleDelete= id=>{
         fetch(`http://localhost:3000/notes/${id}`, {method: 'DELETE'})
         .then(resp => resp.json())
         .then(data => {
             this.props.history.push('/dashboard')
             this.props.deleteNote(id)
+            this.setState({
+                isInEditMode: false
+            })
         })
         .catch(err => console.log(err))
     }
@@ -31,29 +33,28 @@ class Note extends React.Component{
         })
     }
 
-    handleSave = e =>{console.log(this.state.tags, this.props.note.tags.map(tag=> tag.name))
+    handleSave = e =>{
+        let previousTags= this.props.note.tags.map(tag=> tag.name)
+        let absent = previousTags.filter(tag => !this.state.tags.includes(tag))
         e.preventDefault()
-        if(_.isEqual(this.state.tags, this.props.note.tags.map(tag=>tag.name))){
-
-            const reqObj={
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    title: this.state.title,
-                    content: this.state.content,
-                    tags: this.state.tags
-                })
-            }
-
-            fetch(`http://localhost:3000/notes/${this.props.note.id}`, reqObj)
-            .then(resp=>resp.json())
-            .then(note => {
-                this.props.editNote(note)
+        const reqObj={
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                title: this.state.title,
+                content: this.state.content,
+                tags: this.state.tags
             })
         }
+
+        fetch(`http://localhost:3000/notes/${this.props.note.id}`, reqObj)
+        .then(resp=>resp.json())
+        .then(note => {
+            this.props.editNote(note)
+        })
 
         this.setState({
             isInEditMode: false
@@ -109,7 +110,7 @@ class Note extends React.Component{
 
     showMode = ()=>{
         return <div>
-            <Card style={{minWidth:400}}header={this.state.title}
+            <Card header={this.state.title}
                 description={this.state.content}
                 extra={ this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}
             />

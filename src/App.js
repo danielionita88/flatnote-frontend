@@ -7,11 +7,10 @@ import Navbar from './components/Navbar'
 import Dashboard from './containers/Dashboard'
 import CreateNote from './components/CreateNote'
 import SignUpForm from './components/SignUpForm'
-
+import history from './history'
 
 
 class App extends React.Component {
-
 
   setNote = (routeParams) =>{
     const id=routeParams.match.params.noteId
@@ -21,29 +20,31 @@ class App extends React.Component {
 
   render(){
     return (
-      <Router >
+      <Router history={history}>
         <div className='container'>
-          <Route path='/' component={()=>
-            <Navbar 
-            userLogout={this.props.userLogout} 
-            loged={this.props.login}/> }
-          />
-          <Route path='/dashboard'  render={(routeParams)=> 
-            <Dashboard {...routeParams} 
-            user={this.props.login}/>}
-          />
-          <Route exact path='/note/new' render={(routeParams)=>
-            <CreateNote {...routeParams} 
+          <Route path='/' component={()=><Navbar userLogout={this.props.userLogout} 
+          loged={this.props.login}/> 
+          }/>
+          <Route path='/dashboard'  render={(routeParams)=> this.props.login ? 
+            <Dashboard {...routeParams}
             user={this.props.login}
-            createNote={this.props.createNote}/>}
-          />
-          <Route exact path='/login' render={(routeParams)=> 
-            <LoginForm {...routeParams} userLogin={this.props.userLogin}/>}
-          />
-          <Route exact path='/sign-up' render={(routeParams)=>
-            <SignUpForm {...routeParams}
-            userLogin={this.props.userLogin}/>}
-          />
+            />
+            :
+            history.push('/login')
+          }/>
+          <Route exact path='/note/new' render={(routeParams)=>this.props.login ?
+           <CreateNote {...routeParams} user={this.props.login}
+            createNote={this.props.createNote}/>
+            :
+            history.push('/login')
+        }/>
+          <Route exact path='/login' render={(routeParams)=> this.props.login ?
+            history.push('/dashboard')
+            :
+            <LoginForm {...routeParams} userLogin={this.props.userLogin}/>}/>
+          <Route exact path='/sign-up' render={(routeParams)=><SignUpForm {...routeParams}
+          userLogin={this.props.userLogin}/>}/>
+        
         </div>
       </Router>
     );
