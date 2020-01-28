@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import LoginForm from './components/LoginForm'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {Router, Route} from 'react-router-dom'
 import { connect } from 'react-redux'
 import Navbar from './components/Navbar'
 import Dashboard from './containers/Dashboard'

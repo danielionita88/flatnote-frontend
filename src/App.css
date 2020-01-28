@@ -17,14 +17,15 @@
     margin-left: 60px;
 }
 
-
-
 .note{
     width: 600px;
     padding: 50px;
     margin-left: 100px;
 }
 
+.item{
+    cursor: pointer;
+}
 
 
 
