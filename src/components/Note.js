@@ -68,7 +68,7 @@ class Note extends React.Component{
     }
 
     editMode =()=>{
-        return <div>
+        return <div className='edit-note'>
             <Form onSubmit={this.handleSave}>
                 <Form.Field>
                     <span>Title:</span>
@@ -113,7 +113,7 @@ class Note extends React.Component{
             <Card header={this.state.title}
                 description={this.state.content}
                 extra={ this.state.tags.length > 0 ? this.state.tags.join(', ') : this.state.tags[0]}
-            />
+            />  
             <Button onClick={()=>this.handleDelete(this.props.note.id)}>Delete</Button>
             <Button onClick={this.handleEdit}>Edit</Button>
         </div>

@@ -5,27 +5,29 @@
     padding: 70px 0
 }
 .new-note{
-    width: 300px;
-    float: left;
-    width: 50%;
-    padding: 10px
+    position:relative;
+    width: 700px;
+    right:50px;
 }
 
-.notes-list{
-    width: 200px;
-    padding: 50px;
-    margin-left: 60px;
+.dashboard{
+    position:relative;
+    width: 800px;
+    left: 100px;
+    top:50px;
 }
 
-.note{
-    width: 600px;
-    padding: 50px;
-    margin-left: 100px;
+.edit-note{
+    position:relative;
+    width: 700px;
+    bottom: 75px;
+    right: 200px;
 }
 
 .item{
     cursor: pointer;
 }
+
 
 
 

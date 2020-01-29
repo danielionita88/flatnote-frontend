@@ -6,12 +6,19 @@ class CreateNote extends React.Component{
 
     state = {
         title: '',
-        content: ''
+        content: '',
+        tags:''
     }
 
     handleChange= e =>{
         this.setState({
             [e.target.name] : e.target.value
+        })
+    }
+
+    handleTagChange=e=>{
+        this.setState({
+            [e.target.name] : e.target.value.split(',')
         })
     }
 
@@ -44,8 +51,9 @@ class CreateNote extends React.Component{
 
     render(){
         return <div className='new-note'>
-            <h2>Create a note</h2>
             <Form onSubmit={this.handleSubmit}>
+                <h2>Create a note</h2>
+                <br/>
                 <Form.Field>
                     <span>Title</span>
                     <input onChange={this.handleChange} 
@@ -62,6 +70,10 @@ class CreateNote extends React.Component{
                     value={this.state.content}
                     />
                 <br></br>
+                </Form.Field>
+                <Form.Field>
+                    <span>Tags</span>
+                    <input onChange={this.handleTagChange}type='text' name='tags' value={this.state.tags}/>
                 </Form.Field>
                 <Button type='submit'>Save</Button>
 
