@@ -11,13 +11,13 @@ class Navbar extends React.Component{
             <Menu>
                 <h2>FlatNote</h2>
                 <Menu.Item>
-                    <Link to='/dashboard' exact>Dashboard</Link>
+                    <Link to='/dashboard'>Dashboard</Link>
                 </Menu.Item>
                     <Menu.Item>
-                <Link to='/note/new' exact>New Note</Link>
+                <Link to='/note/new' >New Note</Link>
                     </Menu.Item>
                 <Menu.Item>
-                    <Link onClick={this.props.userLogout} to='/' exact> Sign Out</Link>
+                    <Link onClick={this.props.userLogout} to='/'> Sign Out</Link>
                 </Menu.Item>
             </Menu>
             :

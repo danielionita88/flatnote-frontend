@@ -18,7 +18,7 @@ class CreateNote extends React.Component{
 
     handleTagChange=e=>{
         this.setState({
-            [e.target.name] : e.target.value.split(',')
+            tags: e.target.value.split(',')
         })
     }
 
@@ -33,18 +33,15 @@ class CreateNote extends React.Component{
             body: JSON.stringify({
                 title:this.state.title,
                 content: this.state.content,
-                user_id: this.props.user
+                user_id: this.props.user,
+                tags: this.state.tags
             })
         }
 
         fetch('http://localhost:3000/notes/', postObj)
         .then(resp => resp.json())
-        .then(data => {
+        .then(data => {console.log(data)
             this.props.createNote(data)
-            this.setState({
-                title: '',
-                content: ''
-            })
             this.props.history.push('/dashboard')
         })
     }

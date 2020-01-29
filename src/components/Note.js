@@ -34,8 +34,6 @@ class Note extends React.Component{
     }
 
     handleSave = e =>{
-        let previousTags= this.props.note.tags.map(tag=> tag.name)
-        let absent = previousTags.filter(tag => !this.state.tags.includes(tag))
         e.preventDefault()
         const reqObj={
             method: 'PATCH',
@@ -52,10 +50,9 @@ class Note extends React.Component{
 
         fetch(`http://localhost:3000/notes/${this.props.note.id}`, reqObj)
         .then(resp=>resp.json())
-        .then(note => {
+        .then(note => {console.log(note)
             this.props.editNote(note)
         })
-
         this.setState({
             isInEditMode: false
         })
